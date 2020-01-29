@@ -593,6 +593,13 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public int getVarpValue(int varpId)
+	{
+		return getVarpValue(getVarps(), varpId);
+	}
+
+	@Inject
+	@Override
 	public void setVarpValue(int[] varps, int varpId, int value)
 	{
 		varps[varpId] = value;
@@ -1522,7 +1529,7 @@ public abstract class RSClientMixin implements RSClient
 			{
 				if (renderX >= minX && renderX <= maxX && renderY >= minY && renderY <= maxY)
 				{
-					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget);
+					WidgetItem widgetItem = new WidgetItem(widget.getItemId(), widget.getItemQuantity(), -1, widget.getBounds(), widget, false);
 					callbacks.drawItem(widget.getItemId(), widgetItem);
 				}
 			}
@@ -1804,7 +1811,7 @@ public abstract class RSClientMixin implements RSClient
 	{
 		if (volume > 0 && client.getMusicVolume() <= 0 && client.getCurrentTrackGroupId() != -1)
 		{
-			client.playMusicTrack(client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
+			client.playMusicTrack(1000, client.getMusicTracks(), client.getCurrentTrackGroupId(), 0, volume, false);
 		}
 
 		client.setClientMusicVolume(volume);
